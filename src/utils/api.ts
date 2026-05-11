@@ -7,21 +7,27 @@ const BFF_BASE_URL = '/api/bff';
 
 // --- HELPERS ---
 
-const getAuthToken = (): string | null => localStorage.getItem('authToken');
+const getAuthToken = (): string | null => {
+  return localStorage.getItem('authToken');
+};
 
 const getHeaders = (auth = false): HeadersInit => {
-  const headers: HeadersInit = { 'Content-Type': 'application/json' };
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json',
+  };
   if (auth) {
     const token = getAuthToken();
-    if (token) headers['Authorization'] = `Bearer ${token}`;
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
   }
   return headers;
 };
 
 const handleResponse = async (response: Response) => {
   if (!response.ok) {
-    const errorText = await response.text();
     let mensaje = 'Error en la solicitud';
+    const errorText = await response.text();
     try {
       const errorData = JSON.parse(errorText);
       mensaje = errorData.message || errorData.mensaje || mensaje;
@@ -30,7 +36,8 @@ const handleResponse = async (response: Response) => {
     }
     throw new Error(`Error ${response.status}: ${mensaje}`);
   }
-  return response.status === 204 ? null : response.json();
+  if (response.status === 204) return null;
+  return response.json();
 };
 
 // ==================== PRODUCTOS (CONEXIÓN AL BFF) ====================
@@ -65,7 +72,7 @@ export const fetchProductoById = async (id: number): Promise<Producto | null> =>
   }
 };
 
-// ==================== AUTENTICACIÓN (Auth Service) ====================
+// ==================== AUTENTICACIÓN ====================
 
 export const loginUsuario = async (email: string, password: string) => {
   try {
@@ -99,7 +106,7 @@ export const registroMicroservicio = async (datos: any) => {
   }
 };
 
-// ==================== USUARIOS ====================
+// ==================== USUARIOS (ADMIN) ====================
 
 export const fetchUsuarios = async (): Promise<Usuario[]> => {
   try {
@@ -113,7 +120,6 @@ export const fetchUsuarios = async (): Promise<Usuario[]> => {
   }
 };
 
-// --- ESTA ES LA FUNCIÓN QUE TE DABA EL ERROR ---
 export const obtenerUsuarioPorId = async (id: number) => {
   try {
     const data = await handleResponse(await fetch(`${API_BASE_URL}/usuarios/${id}`, {
@@ -121,7 +127,19 @@ export const obtenerUsuarioPorId = async (id: number) => {
     }));
     return { success: true, usuario: data };
   } catch (error: any) {
-    console.error('Error obteniendo usuario:', error);
+    return { success: false, message: error.message };
+  }
+};
+
+export const actualizarUsuario = async (id: number, usuario: Partial<Usuario>) => {
+  try {
+    const data = await handleResponse(await fetch(`${API_BASE_URL}/usuarios/${id}`, {
+      method: 'PUT',
+      headers: getHeaders(true),
+      body: JSON.stringify(usuario)
+    }));
+    return { success: true, message: 'Usuario actualizado', usuario: data };
+  } catch (error: any) {
     return { success: false, message: error.message };
   }
 };
@@ -143,7 +161,10 @@ export const eliminarUsuario = async (id: number) => {
 export const fetchPedidos = async (isAdmin: boolean = false, usuarioId?: number) => {
   try {
     const token = localStorage.getItem('authToken');
-    const endpoint = isAdmin ? `${API_BASE_URL}/pedidos/admin` : `${API_BASE_URL}/pedidos`;
+    const endpoint = isAdmin 
+      ? `${API_BASE_URL}/pedidos/admin?size=100` 
+      : `${API_BASE_URL}/pedidos?size=100`;
+    
     const headers: any = {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
@@ -159,11 +180,50 @@ export const fetchPedidos = async (isAdmin: boolean = false, usuarioId?: number)
   }
 };
 
-// Otros helpers necesarios para el admin
+// Función necesaria para CarritoModal.tsx
+export const crearPedido = async (pedidoData: any) => {
+  try {
+    const token = localStorage.getItem('authToken');
+    const headers: any = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      'X-User-ID': pedidoData.usuarioId.toString()
+    };
+
+    const data = await handleResponse(await fetch(`${API_BASE_URL}/pedidos`, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(pedidoData)
+    }));
+    return { success: true, pedido: data, id: data.id };
+  } catch (error: any) {
+    return { success: false, message: error.message };
+  }
+};
+
+// ==================== CONTACTO & HELPERS ====================
+
+export const enviarMensajeContacto = async (datos: any) => {
+  try {
+    await handleResponse(await fetch(`${API_BASE_URL}/contacto`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify(datos)
+    }));
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, message: error.message };
+  }
+};
+
 export const fetchAdmins = async (): Promise<Usuario[]> => {
     const usuarios = await fetchUsuarios();
     return usuarios.filter(u => 
         (typeof u.rol === 'string' && u.rol.toUpperCase() === 'ADMIN') ||
         (typeof u.rol === 'object' && (u.rol as any).nombre === 'ADMIN')
     );
+};
+
+export const registrarUsuario = async (datos: any) => {
+  return await registroMicroservicio(datos);
 };
