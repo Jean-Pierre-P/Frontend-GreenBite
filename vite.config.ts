@@ -1,46 +1,24 @@
-import { defineConfig } from 'vitest/config'
-import react from '@vitejs/plugin-react-swc'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      // Bypass gateway (8080) and hit services directly during dev
-      '/api/auth': {
-        target: 'http://localhost:8081',
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api\//, '/')
-      },
-      '/api/usuarios': {
-        target: 'http://localhost:8081',
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api\//, '/')
-      },
-      '/api/productos': {
-        target: 'http://localhost:8082',
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api\//, '/')
-      },
-      '/api/pedidos': {
+      // Proxy para el BFF (Backend For Frontend)
+      '/api/bff': {
         target: 'http://localhost:8083',
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/api\//, '/')
+        // Esto asegura que la ruta se mantenga correctamente al enviar al BFF
+        rewrite: (path) => path.replace(/^\/api\/bff/, '/api/bff')
       },
-      '/api/contacto': {
-        target: 'http://localhost:8084',
+      // Proxy para Microservicios directos (Auth, Usuarios, Pedidos)
+      '/api': {
+        target: 'http://localhost:8082', // Ajusta este puerto al de tu API Gateway o servicio principal
         changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api\//, '/')
+        secure: false
       }
     }
-  },
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: './test/setup.ts'
   }
-})
+});
