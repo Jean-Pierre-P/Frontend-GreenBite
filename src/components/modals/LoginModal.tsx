@@ -151,7 +151,9 @@ const LoginModal = () => {
           </div>
           <div className="modal-body p-4">
             <div className="text-center mb-4">
-              <img src="/img/Logo-convertido-a-pequeño-Photoroom.png" alt="Logo" style={{ width: 150 }} />
+              <img src="/assets/logo.png" alt="GreenBite Logo" className="mb-3" style={{ width: '80px' }} />
+              <h5>¡Bienvenido a GreenBite!</h5>
+              <p>Por favor, ingresa tus credenciales para continuar.</p>
             </div>
 
             <form id="login-form-modal" onSubmit={handleSubmit}>
