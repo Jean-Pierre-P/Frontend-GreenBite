@@ -4,7 +4,7 @@ Frontend de la plataforma GreenBite, una plataforma de suscripción de alimentos
 
 ## Descripción
 
-Este es el componente frontend de GreenBite, desarrollado con React + TypeScript + Vite. La aplicación permite a los usuarios:
+Este es el frontend de GreenBite, hecho con React + TypeScript + Vite. La aplicación permite a los usuarios:
 
 - **Inicio:** Visualizar productos destacados
 - **Productos:** Explorar el catálogo completo de productos con filtros y búsqueda
@@ -33,26 +33,6 @@ src/
 ├── App.tsx            # Componente raíz
 └── main.tsx           # Punto de entrada
 ```
-
-## Instalación
-
-1. **Clonar el repositorio:**
-   ```bash
-   git clone <URL_DEL_REPOSITORIO>
-   cd Fronted
-   ```
-
-2. **Instalar dependencias:**
-   ```bash
-   npm install
-   ```
-
-3. **Configurar variables de entorno:**
-   Crear un archivo `.env` en la raíz del proyecto:
-   ```
-   VITE_API_URL=http://localhost:3000
-   ```
-
 ## Desarrollo
 
 Ejecutar el servidor de desarrollo:
@@ -92,41 +72,7 @@ npm run coverage
 - **Bootstrap 5:** Framework CSS
 - **TypeScript:** Tipado estático
 - **Vite:** Herramienta de construcción rápida
-
-## Conexión con el Backend
-
 El frontend se conecta con el **BFF (Backend For Frontend)** a través de la API definida en `src/utils/api.ts`.
 
-### Endpoints esperados del BFF:
-
-- `GET /api/productos` - Obtener lista de productos
-- `POST /api/auth/login` - Iniciar sesión
-- `POST /api/auth/registro` - Registrar nuevo usuario
-- `POST /api/carrito/agregar` - Agregar producto al carrito
-- `GET /api/carrito` - Obtener carrito del usuario
-
-## Características Implementadas
-
-✅ Página de Inicio con productos destacados
-✅ Catálogo de Productos con filtros y búsqueda
-✅ Carrito de Compras funcional
-✅ Modales de Login y Registro
-✅ Autenticación con Context API
-✅ Sincronización de estado con localStorage
-✅ Responsive Design con Bootstrap
-
-## Características Futuras
-
-- Página de Perfil de Usuario
-- Historial de Pedidos
-- Sistema de Recomendaciones (GreenPoints)
-- Integración con pasarela de pagos
-- Notificaciones en tiempo real
-
-## Licencia
-
-Proyecto académico - DuocUC 2025
-
----
 
 **Desarrollado para:** Evaluación Parcial N°2 - Desarrollo Fullstack III
