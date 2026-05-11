@@ -10,7 +10,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg bg-body-tertiary shadow-sm sticky-top">
       <div className="container">
         <NavLink className="navbar-brand logo" to="/index.html">
-          <img src="/img/Logo-convertido-a-pequeño-Photoroom.png" alt="Logo" className="logo-img" />
+          GreenBite
         </NavLink>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
           <span className="navbar-toggler-icon"></span>
