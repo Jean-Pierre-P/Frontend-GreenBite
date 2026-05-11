@@ -1,0 +1,206 @@
+.login-admin-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f8f9fa; 
+}
+
+.login-admin-container {
+  max-width: 450px;
+  width: 100%;
+  padding: 1rem;
+}
+
+.login-admin-card {
+  background-color: #ffffff;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: none;
+}
+
+.login-admin-card h2 {
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.login-admin-card .form-label {
+  font-weight: 600;
+}
+
+.login-admin-card .btn-primary {
+  padding: 0.75rem;
+  font-weight: 600;
+  font-size: 1rem;
+  background-color: #007bff; /* Azul primario de Bootstrap */
+  border: none;
+  transition: background-color 0.2s;
+}
+
+.login-admin-card .btn-primary:hover {
+  background-color: #0056b3;
+}
+/* --- MEJORAS DE UI Y TRANSICIONES --- */
+
+/* Transición suave para todos los botones */
+.btn {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Transición para los links de la Navbar */
+.navbar .nav-link {
+  transition: all 0.2s ease-in-out;
+  border-bottom: 2px solid transparent;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: #198754 !important; /* Verde de Bootstrap */
+  border-bottom-color: #198754;
+}
+
+/* Transición para las tarjetas de productos */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+}
+/* --- ESTILOS PARA FILTROS DE PRODUCTOS --- */
+
+/* Estilo para la barra de búsqueda cuando se escribe en ella */
+.form-control:focus {
+  border-color: #198754; /* Verde de Bootstrap */
+  box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+}
+
+/* Estilo para el select de categoría cuando se selecciona */
+.form-select:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+}
+/* --- ESTILOS DE LAYOUT (Sticky Footer) --- */
+
+/* 1. Asegura que todo ocupe la altura completa */
+html, body, #root {
+  height: 100%;
+}
+
+/* 2. Convierte el layout en un contenedor flex vertical */
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ocupa al menos toda la altura de la pantalla */
+}
+
+main {
+  flex-grow: 1; 
+}
+.nosotros-banner {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/img/blog-huerto-en-casa.png'); /* Usamos una imagen de blog como ejemplo */
+  background-size: cover;
+  background-position: center;
+  padding: 6rem 1rem;
+  text-align: center;
+  color: white;
+}
+
+.nosotros-banner h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+}
+
+.nosotros-content-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+/* --- TEMA DEL PANEL DE ADMIN --- */
+
+/* 1. Layout Básico de Admin */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* 2. Sidebar (Altura completa y transiciones) */
+.sidebar {
+  width: 280px;
+  min-width: 280px;
+  background-color: #343a40; /* Bootstrap Dark */
+  color: white;
+  position: sticky; /* Fija la sidebar */
+  top: 0;
+  height: 100vh; /* Altura completa */
+  overflow-y: auto; /* Permite scroll si hay muchos enlaces */
+}
+
+.sidebar .nav-link {
+  color: #adb5bd; /* Gris claro */
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out; /* Transición */
+}
+
+.sidebar .nav-link:hover {
+  color: #ffffff;
+  background-color: #495057; /* Gris más oscuro */
+}
+
+.sidebar .nav-link.active {
+  color: #ffffff;
+  background-color: #198754; /* Verde (color principal) */
+  font-weight: 700;
+}
+
+.sidebar .dropdown-menu {
+  background-color: #343a40;
+}
+.sidebar .dropdown-item {
+  color: #adb5bd;
+}
+.sidebar .dropdown-item:hover {
+  color: #ffffff;
+  background-color: #495057;
+}
+
+/* 3. Contenido Principal del Admin */
+.admin-main-content {
+  flex-grow: 1;
+  padding: 2rem;
+  background-color: #f4f7f6; /* Fondo gris muy claro */
+}
+
+/* 4. Tarjetas del Dashboard (como en la foto) */
+.dashboard-card {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card .card-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashboard-card .card-icon {
+  font-size: 3rem;
+  opacity: 0.3;
+}
+
+/* 5. Estilos de Tablas de Admin */
+.admin-table thead {
+  background-color: #e9ecef;
+}
