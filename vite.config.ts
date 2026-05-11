@@ -12,7 +12,8 @@ export default defineConfig({
       },
       '/api': {
         target: 'http://localhost:8080', // Microservicio de Login/Auth
-        changeOrigin: true
+        changeOrigin: true,
+        secure: false
       }
     }
   }
